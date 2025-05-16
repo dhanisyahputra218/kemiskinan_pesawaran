@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Kemiskinan</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="dashboard">
+        <div class="main-content">
+            <!-- Header Section -->
+            <header>
+                <div class="logo-title">
+                    <img src="/static/logo.jpg" alt="Logo Pesawaran" class="logo">
+                    <div class="title">
+                        <h1>VISUALISASI DASHBOARD</h1>
+                        <h2>PENANGGULANGAN KEMISKINAN EKSTREM PESAWARAN</h2>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <a href="/input" class="btn btn-primary">Input Data Baru</a>
+                </div>
+            </header>
+
+            <!-- Filters Section -->
+            <div class="filters">
+                <div class="filter-group">
+                    <label for="year">Tahun</label>
+                    <select id="year" name="year">
+                        <option value="">Semua Tahun</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="kecamatan">Kecamatan</label>
+                    <select id="kecamatan" name="kecamatan">
+                        <option value="">Semua Kecamatan</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="desa">Desa</label>
+                    <select id="desa" name="desa" disabled>
+                        <option value="">Pilih Kecamatan Dulu</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Statistics Grid -->
+            <div class="stats-grid">
+                <div class="stat-box" id="income-stat">
+                    <small>Total Pendapatan/bulan</small>
+                    <h3 id="total-pendapatan">Loading...</h3>
+                </div>
+                <div class="stat-box" id="expense-stat">
+                    <small>Total Pengeluaran/bulan</small>
+                    <h3 id="total-pengeluaran">Loading...</h3>
+                </div>
+                <div class="stat-box" id="bpk-stat">
+                    <small>BPK/UMKM Perkapita</small>
+                    <h3 id="bpk-umkm">Loading...</h3>
+                </div>
+                <div class="stat-box" id="unemployment-stat">
+                    <small>Persentase Pengangguran</small>
+                    <h3 id="persentase-pengangguran">Loading...</h3>
+                </div>
+                <div class="stat-box" id="poverty-stat">
+                    <small>Persentase Kemiskinan</small>
+                    <h3 id="persentase-kemiskinan">Loading...</h3>
+                </div>
+            </div>
+
+            <!-- Visualizations -->
+            <div class="visualizations">
+                <!-- Map Section -->
+                <div class="map-section">
+                    <h3>Peta Sebaran Kemiskinan</h3>
+                    <div id="map"></div>
+                </div>
+
+                <!-- Charts Grid -->
+                <div class="charts-grid">
+                    <div class="chart-box">
+                        <h3>Distribusi Penduduk Miskin per Kecamatan</h3>
+                        <canvas id="povertyDistributionChart"></canvas>
+                    </div>
+                    <div class="chart-box">
+                        <h3>Tren Kemiskinan</h3>
+                        <canvas id="povertyTrendChart"></canvas>
+                    </div>
+                    <div class="chart-box">
+                        <h3>Perbandingan Pendapatan vs Pengeluaran</h3>
+                        <canvas id="incomeExpenseChart"></canvas>
+                    </div>
+                    <div class="chart-box">
+                        <h3>Indeks Pembangunan Manusia (IPM)</h3>
+                        <canvas id="ipmChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <script src="/static/data/kecamatan_kab_pesawaran.js"></script>
+    <script src="/static/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Data Kemiskinan</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="mb-0">Input Data Kemiskinan</h3>
+                    </div>
+                    <div class="card-body">
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                            {% if messages %}
+                                {% for category, message in messages %}
+                                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+
+                        <form action="{{ url_for('submit_data') }}" method="POST">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="tahun" class="form-label">Tahun</label>
+                                    <input type="number" class="form-control" id="tahun" name="tahun" required min="2000" max="2100">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="kecamatan" class="form-label">Kecamatan</label>
+                                    <select class="form-select" id="kecamatan" name="kecamatan" required>
+                                        <option value="">Pilih Kecamatan</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="desa" class="form-label">Desa</label>
+                                <select class="form-select" id="desa" name="desa" required>
+                                    <option value="">Pilih Desa</option>
+                                </select>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="jum_penduduk" class="form-label">Jumlah Penduduk</label>
+                                    <input type="number" class="form-control" id="jum_penduduk" name="jum_penduduk" required min="0">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="persentase_pen_miskin" class="form-label">Persentase Penduduk Miskin (%)</label>
+                                    <input type="number" class="form-control" id="persentase_pen_miskin" name="persentase_pen_miskin" required min="0" max="100" step="0.01">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="garis_kemiskinan" class="form-label">Garis Kemiskinan (Rp/Kap/Bulan)</label>
+                                    <input type="number" class="form-control" id="garis_kemiskinan" name="garis_kemiskinan" min="0">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="persentase_ruta_miskin_bpnt" class="form-label">Persentase Ruta Miskin BPNT (%)</label>
+                                    <input type="number" class="form-control" id="persentase_ruta_miskin_bpnt" name="persentase_ruta_miskin_bpnt" min="0" max="100" step="0.01">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="jumlah_kg_bulan" class="form-label">Jumlah (kg/bulan)</label>
+                                    <input type="number" class="form-control" id="jumlah_kg_bulan" name="jumlah_kg_bulan" min="0" step="0.01">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="harga_kg" class="form-label">Harga (Rp/Kg)</label>
+                                    <input type="number" class="form-control" id="harga_kg" name="harga_kg" min="0">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="sanitasi_layak" class="form-label">Akses Sanitasi</label>
+                                    <select class="form-select" id="sanitasi_layak" name="sanitasi_layak">
+                                        <option value="Layak">Layak</option>
+                                        <option value="Tidak Layak">Tidak Layak</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="air_minum_layak" class="form-label">Akses Air Minum</label>
+                                    <select class="form-select" id="air_minum_layak" name="air_minum_layak">
+                                        <option value="Layak">Layak</option>
+                                        <option value="Tidak Layak">Tidak Layak</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="rata_pendapatan_hari" class="form-label">Rata-rata Pendapatan/Hari (Rp)</label>
+                                    <input type="number" class="form-control" id="rata_pendapatan_hari" name="rata_pendapatan_hari" required min="0">
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="total_pendapatan" class="form-label">Total Pendapatan/Bulan (Rp)</label>
+                                    <input type="number" class="form-control" id="total_pendapatan" name="total_pendapatan" required min="0">
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="total_pengeluaran" class="form-label">Total Pengeluaran/Bulan (Rp)</label>
+                                    <input type="number" class="form-control" id="total_pengeluaran" name="total_pengeluaran" required min="0">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="miskin" class="form-label">Jumlah Miskin</label>
+                                    <input type="number" class="form-control" id="miskin" name="miskin" min="0" step="1">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="tidak_miskin" class="form-label">Jumlah Tidak Miskin</label>
+                                    <input type="number" class="form-control" id="tidak_miskin" name="tidak_miskin" min="0" step="1">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="bekerja_pertanian" class="form-label">Bekerja di Sektor Pertanian</label>
+                                    <input type="number" class="form-control" id="bekerja_pertanian" name="bekerja_pertanian" min="0" step="1">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="bekerja_non_pertanian" class="form-label">Bekerja di Non-Pertanian</label>
+                                    <input type="number" class="form-control" id="bekerja_non_pertanian" name="bekerja_non_pertanian" min="0" step="1">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="mencari_pekerjaan" class="form-label">Mencari Pekerjaan</label>
+                                    <input type="number" class="form-control" id="mencari_pekerjaan" name="mencari_pekerjaan" min="0" step="1">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="tidak_bekerja" class="form-label">Tidak Bekerja</label>
+                                    <input type="number" class="form-control" id="tidak_bekerja" name="tidak_bekerja" min="0" step="1">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="persentase_pengangguran" class="form-label">Persentase Pengangguran (%)</label>
+                                    <input type="number" class="form-control" id="persentase_pengangguran" name="persentase_pengangguran" required min="0" max="100" step="0.01">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="tingkat_kekumuhan" class="form-label">Tingkat Kekumuhan</label>
+                                    <select class="form-select" id="tingkat_kekumuhan" name="tingkat_kekumuhan">
+                                        <option value="Kumuh Ringan">Kumuh Ringan</option>
+                                        <option value="Kumuh Sedang" selected>Kumuh Sedang</option>
+                                        <option value="Kumuh Berat">Kumuh Berat</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-3 mb-3">
+                                    <label for="luas_kumuh" class="form-label">Luas Kumuh (Ha)</label>
+                                    <input type="number" class="form-control" id="luas_kumuh" name="luas_kumuh" min="0" step="0.01">
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label for="pendidikan_sd" class="form-label">Pendidikan < SD (%)</label>
+                                    <input type="number" class="form-control" id="pendidikan_sd" name="pendidikan_sd" min="0" max="100" step="0.01">
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label for="pendidikan_smp" class="form-label">Tamat SD/SMP (%)</label>
+                                    <input type="number" class="form-control" id="pendidikan_smp" name="pendidikan_smp" min="0" max="100" step="0.01">
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label for="pendidikan_sma" class="form-label">Tamat > SMA (%)</label>
+                                    <input type="number" class="form-control" id="pendidikan_sma" name="pendidikan_sma" min="0" max="100" step="0.01">
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="ipm" class="form-label">IPM (Indeks Pembangunan Manusia)</label>
+                                <input type="number" class="form-control" id="ipm" name="ipm" min="0" max="100" step="0.01">
+                            </div>
+
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary">Simpan Data</button>
+                                <a href="/" class="btn btn-secondary">Kembali ke Dashboard</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Fetch kecamatan data when page loads
+        fetch('/api/filters')
+            .then(response => response.json())
+            .then(data => {
+                const kecamatanSelect = document.getElementById('kecamatan');
+                data.kecamatan.forEach(kec => {
+                    const option = document.createElement('option');
+                    option.value = kec.nama;
+                    option.textContent = kec.nama;
+                    option.setAttribute('data-id', kec.id);
+                    kecamatanSelect.appendChild(option);
+                });
+            });
+
+        // Update desa options when kecamatan changes
+        document.getElementById('kecamatan').addEventListener('change', function() {
+            const selectedOption = this.options[this.selectedIndex];
+            const kecamatanId = selectedOption.getAttribute('data-id');
+            const desaSelect = document.getElementById('desa');
+            
+            // Clear existing options
+            desaSelect.innerHTML = '<option value="">Pilih Desa</option>';
+            
+            if (kecamatanId) {
+                fetch(`/api/desa?kecamatan=${kecamatanId}`)
+                    .then(response => response.json())
+                    .then(desas => {
+                        desas.forEach(desa => {
+                            const option = document.createElement('option');
+                            option.value = desa;
+                            option.textContent = desa;
+                            desaSelect.appendChild(option);
+                        });
+                    });
+            }
+        });
+    </script>
+</body>
+</html>
